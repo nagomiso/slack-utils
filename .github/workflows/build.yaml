@@ -22,3 +22,4 @@ jobs:
       - name: Build wheel
         run: |
           poetry build -f wheel
+          mkdir -p docker/wheels && cp -a dist/*.whl docker/wheels/
