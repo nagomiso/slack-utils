@@ -21,6 +21,4 @@ jobs:
           pip3 install --user poetry==${{env.POETRY_VERSION}}
       - name: Build wheel
         run: |
-          pwd
-          ls -la
           poetry build -f wheel
