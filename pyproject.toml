@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "slack-utils"
+name = "slackutils"
 version = "0.1.0"
 description = ""
 authors = ["nagomiso <daiseigi.giants+github@gmail.com>"]
@@ -8,6 +8,7 @@ license = "MIT License"
 [tool.poetry.dependencies]
 python = "^3.8"
 slack-sdk = "^3.4.2"
+click = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
@@ -16,6 +17,9 @@ flake8 = "^3.9.0"
 mypy = "^0.812"
 isort = "^5.8.0"
 pre-commit = "^2.11.1"
+
+[tool.poetry.scripts]
+slackutils = "slackutils.cmd.main:main"
 
 [tool.black]
 line-length = 88
@@ -28,8 +32,7 @@ line_length = 88
 multi_line_output = 3
 use_parentheses = true
 known_third_party = "slack_sdk"
-known_first_party = "slack_utils"
-
+known_first_party = "slackutils"
 
 [tool.pytest.ini_options]
 minversion = "6.2"
@@ -37,7 +40,6 @@ addopts = """
     -s \
     -vv"""
 testpaths = ["tests"]
-
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
