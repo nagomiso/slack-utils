@@ -1,0 +1,23 @@
+name: Docker Image Build
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+env:
+  POETRY_VERSION: "1.1.6"
+jobs:
+  build-image:
+    name: Build Image
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.8"
+      - name: Install Poetry
+        run: |
+          pip3 install --user poetry==${{env.POETRY_VERSION}}
+      - name: Build wheel
+        run: |
+          poetry build -f wheel
