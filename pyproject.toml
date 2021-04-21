@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "slack-utils"
+name = "slackutils"
 version = "0.1.0"
 description = ""
 authors = ["nagomiso <daiseigi.giants+github@gmail.com>"]
@@ -8,6 +8,7 @@ license = "MIT License"
 [tool.poetry.dependencies]
 python = "^3.8"
 slack-sdk = "^3.4.2"
+click = "^7.1.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"

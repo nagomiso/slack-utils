@@ -62,7 +62,7 @@ python-versions = ">=3.6.1"
 name = "click"
 version = "7.1.2"
 description = "Composable command line interface toolkit"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -355,7 +355,7 @@ testing = ["coverage (>=4)", "coverage-enable-subprocess (>=1)", "flaky (>=3)", 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "ce7aef5c6c1d56f6c74a0ba24491e4a211f483a8aea879c9d8a714670422c693"
+content-hash = "dedb5690cc2c765a05ee3aca3b704a2940ac0f73f702001bb27aa98cab1e5558"
 
 [metadata.files]
 appdirs = [

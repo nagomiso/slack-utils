@@ -1,6 +1,6 @@
 from slack_sdk.webhook import WebhookClient
 
-from data import Attachments
+from slackutils.data import Attachments
 
 
 def send(
