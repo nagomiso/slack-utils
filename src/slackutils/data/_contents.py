@@ -19,6 +19,7 @@ class Attachments(NamedTuple):
             return SUCCEEDED_COLOR
         if self.status == "Failed":
             return FAILED_COLOR
+        return ""
 
     def to_payload(self) -> list:
         return [
