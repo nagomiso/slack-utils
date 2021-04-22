@@ -14,6 +14,7 @@ def main():
 @click.option("--title", required=True, type=str)
 @click.option("--workflow-id", required=True, type=str)
 @click.option("--status", required=True, type=str)
+@click.option("--message", required=True, type=str)
 @click.option("--namespace", required=True, type=str)
 @click.option("--serviceaccount", required=True, type=str)
 @click.option("--url", required=True, type=str)
@@ -21,6 +22,7 @@ def webhook_send(
     title: str,
     workflow_id: str,
     status: str,
+    message: str,
     namespace: str,
     serviceaccount: str,
     url: str,
@@ -31,6 +33,7 @@ def webhook_send(
         title=title,
         workflow_id=workflow_id,
         status=status,
+        message=message,
         namespace=namespace,
         serviceaccount=serviceaccount,
         url=url,
