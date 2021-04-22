@@ -9,6 +9,7 @@ class Attachments(NamedTuple):
     title: str
     workflow_id: str
     status: str
+    message: str
     namespace: str
     serviceaccount: str
     url: str
@@ -29,6 +30,10 @@ class Attachments(NamedTuple):
                     {
                         "type": "header",
                         "text": {"type": "plain_text", "text": self.title},
+                    },
+                    {
+                        "type": "section",
+                        "text": {"type": "mrkdwn", "text": self.message},
                     },
                     {
                         "type": "section",
