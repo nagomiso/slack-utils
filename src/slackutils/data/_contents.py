@@ -33,38 +33,24 @@ class Attachments(NamedTuple):
                     {
                         "type": "section",
                         "fields": [
-                            {"type": "mrkdwn", "text": "*workflow id*"},
-                            {"type": "mrkdwn", "text": "*status*"},
+                            {
+                                "type": "mrkdwn",
+                                "text": f"*workflow id*:\n{self.workflow_id}",
+                            },
+                            {"type": "mrkdwn", "text": f"*status*:\n{self.status}"},
+                            {
+                                "type": "mrkdwn",
+                                "text": f"*namespace*:\n{self.namespace}",
+                            },
+                            {
+                                "type": "mrkdwn",
+                                "text": f"*serviceaccount*:\n{self.serviceaccount}",
+                            },
                         ],
                     },
                     {
                         "type": "section",
-                        "fields": [
-                            {"type": "mrkdwn", "text": self.workflow_id},
-                            {"type": "mrkdwn", "text": self.status},
-                        ],
-                    },
-                    {
-                        "type": "section",
-                        "fields": [
-                            {"type": "mrkdwn", "text": "*namespace*"},
-                            {"type": "mrkdwn", "text": "*serviceaccount*"},
-                        ],
-                    },
-                    {
-                        "type": "section",
-                        "fields": [
-                            {"type": "mrkdwn", "text": self.namespace},
-                            {"type": "mrkdwn", "text": self.serviceaccount},
-                        ],
-                    },
-                    {
-                        "type": "section",
-                        "text": {"type": "mrkdwn", "text": "*url*"},
-                    },
-                    {
-                        "type": "section",
-                        "text": {"type": "mrkdwn", "text": self.url},
+                        "text": {"type": "mrkdwn", "text": f"*url*:\n{self.url}"},
                     },
                 ],
             },
