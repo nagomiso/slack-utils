@@ -1,3 +1,4 @@
+from slack_sdk.errors import SlackClientError
 from slack_sdk.webhook import WebhookClient
 
 from slackutils.data import Attachments
@@ -22,7 +23,8 @@ def send(
         url=url,
     )
     response = webhook.send(attachments=attachments.to_payload())
-    if response.status_code != 200:
-        raise
-    if response.body != "ok":
-        raise
+    status_code, body = response.status_code, response.body
+    if status_code != 200 or body != "ok":
+        raise SlackClientError(
+            f"Webhook request was failed - status: {status_code}, body: {body}"
+        )
