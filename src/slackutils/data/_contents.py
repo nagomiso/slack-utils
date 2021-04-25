@@ -1,6 +1,5 @@
 from typing import NamedTuple
 
-
 SUCCEEDED_COLOR = "#2EB886"
 FAILED_COLOR = "#A30100"
 
