@@ -40,5 +40,9 @@ def webhook_send(
     )
 
 
+def upload_image():
+    pass
+
+
 if __name__ == "__main__":
     main()
