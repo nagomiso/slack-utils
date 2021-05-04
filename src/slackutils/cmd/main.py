@@ -2,6 +2,7 @@ import os
 
 import click
 
+import slackutils.files
 import slackutils.webhook
 
 
@@ -49,8 +50,13 @@ def upload_image(
     filepath: str,
     description: str,
 ) -> None:
-    # token = os.environ["TOKEN"]
-    pass
+    token = os.environ["TOKEN"]
+    slackutils.files.upload_images(
+        token=token,
+        channel=channel,
+        filepath=filepath,
+        description=description,
+    )
 
 
 if __name__ == "__main__":
