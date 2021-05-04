@@ -2,6 +2,7 @@ import os
 
 import click
 
+import slackutils.files
 import slackutils.webhook
 
 
@@ -26,7 +27,7 @@ def webhook_send(
     namespace: str,
     serviceaccount: str,
     url: str,
-):
+) -> None:
     webhook_url = os.environ["WEBHOOK_URL"]
     slackutils.webhook.send(
         webhook_url=webhook_url,
@@ -40,8 +41,22 @@ def webhook_send(
     )
 
 
-def upload_image():
-    pass
+@main.command()
+@click.option("--channel", required=True, type=str)
+@click.option("--filepath", required=True, type=str)
+@click.option("--description", required=True, type=str)
+def upload_image(
+    channel: str,
+    filepath: str,
+    description: str,
+) -> None:
+    token = os.environ["TOKEN"]
+    slackutils.files.upload_images(
+        token=token,
+        channel=channel,
+        filepath=filepath,
+        description=description,
+    )
 
 
 if __name__ == "__main__":
