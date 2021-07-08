@@ -28,7 +28,7 @@ def webhook_send(
     serviceaccount: str,
     url: str,
 ) -> None:
-    webhook_url = os.environ["WEBHOOK_URL"]
+    webhook_url = os.environ["SLACL_WEBHOOK_URL"]
     slackutils.webhook.send(
         webhook_url=webhook_url,
         title=title,
