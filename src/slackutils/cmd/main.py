@@ -15,7 +15,7 @@ def main():
 @click.option("--title", required=True, type=str)
 @click.option("--workflow-id", required=True, type=str)
 @click.option("--status", required=True, type=str)
-@click.option("--message", required=True, type=str)
+@click.option("--message", required=False, type=str, default="")
 @click.option("--namespace", required=True, type=str)
 @click.option("--serviceaccount", required=True, type=str)
 @click.option("--url", required=True, type=str)
