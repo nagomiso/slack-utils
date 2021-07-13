@@ -15,7 +15,7 @@ def main():
 @click.option("--title", required=True, type=str)
 @click.option("--workflow-id", required=True, type=str)
 @click.option("--status", required=True, type=str)
-@click.option("--message", required=True, type=str)
+@click.option("--message", required=False, type=str, default="")
 @click.option("--namespace", required=True, type=str)
 @click.option("--serviceaccount", required=True, type=str)
 @click.option("--url", required=True, type=str)
@@ -28,7 +28,7 @@ def webhook_send(
     serviceaccount: str,
     url: str,
 ) -> None:
-    webhook_url = os.environ["SLACL_WEBHOOK_URL"]
+    webhook_url = os.environ["SLACK_WEBHOOK_URL"]
     slackutils.webhook.send(
         webhook_url=webhook_url,
         title=title,
