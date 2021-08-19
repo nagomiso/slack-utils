@@ -1,61 +1,100 @@
-from typing import NamedTuple
+from enum import Enum
+from typing import NamedTuple, Optional, Sequence, TypedDict, Union
 
-SUCCEEDED_COLOR = "#2EB886"
-FAILED_COLOR = "#A30100"
+
+class Color(Enum):
+    GOOD = "#2EB886"
+    WARNING = "#DAA038"
+    DANGER = "#A30100"
+    NONE = ""
+
+    @classmethod
+    def get_code(cls, name: str) -> str:
+        return getattr(cls, name.upper()).value
+
+
+class Text(TypedDict):
+    type: str
+    text: str
+
+
+class SimpleSection(TypedDict):
+    type: str
+    text: Text
+
+
+class FieldsSection(TypedDict):
+    type: str
+    fileds: Sequence[Text]
 
 
 class Attachments(NamedTuple):
-    title: str
-    workflow_id: str
-    status: str
-    message: str
-    namespace: str
-    serviceaccount: str
-    url: str
+    color: str
+    header: Optional[str]
+    message: Optional[str]
+    fields: Sequence[str]
+    footer: Optional[str]
 
-    @property
-    def color(self) -> str:
-        if self.status == "Succeeded":
-            return SUCCEEDED_COLOR
-        if self.status == "Failed":
-            return FAILED_COLOR
-        return ""
+    @staticmethod
+    def _convert_to_mrkdwn_section(val: str) -> SimpleSection:
+        return SimpleSection(
+            type="section",
+            text=Text(
+                type="mrkdwn",
+                text=val,
+            ),
+        )
 
-    def to_payload(self) -> list:
-        return [
-            {
-                "color": self.color,
-                "blocks": [
-                    {
-                        "type": "header",
-                        "text": {"type": "plain_text", "text": self.title},
-                    },
-                    {
-                        "type": "section",
-                        "text": {"type": "mrkdwn", "text": self.message},
-                    },
-                    {
-                        "type": "section",
-                        "fields": [
-                            {
-                                "type": "mrkdwn",
-                                "text": f"*workflow id*:\n{self.workflow_id}",
-                            },
-                            {"type": "mrkdwn", "text": f"*status*:\n{self.status}"},
-                            {
-                                "type": "mrkdwn",
-                                "text": f"*namespace*:\n{self.namespace}",
-                            },
-                            {
-                                "type": "mrkdwn",
-                                "text": f"*serviceaccount*:\n{self.serviceaccount}",
-                            },
-                        ],
-                    },
-                    {
-                        "type": "section",
-                        "text": {"type": "mrkdwn", "text": f"*url*:\n{self.url}"},
-                    },
-                ],
-            },
-        ]
+    def _header_to_dict(self) -> Optional[SimpleSection]:
+        if self.header:
+            return SimpleSection(
+                type="header",
+                text=Text(
+                    type="plain_text",
+                    text=self.header,
+                ),
+            )
+        return None
+
+    def _message_to_dict(self) -> Optional[SimpleSection]:
+        if self.message:
+            return self._convert_to_mrkdwn_section(self.message)
+        return None
+
+    def _fields_to_dict(self) -> Optional[FieldsSection]:
+        if self.fields:
+            return FieldsSection(
+                type="section",
+                fields=[Text(type="mrkdwn", text=field) for field in self.fields],
+            )
+        return None
+
+    def _footer_to_dict(self) -> Optional[SimpleSection]:
+        if self.footer:
+            return self._convert_to_mrkdwn_section(self.footer)
+        return None
+
+    def _build_block(self) -> Sequence[Union[SimpleSection, FieldsSection]]:
+        ret: Sequence[Union[SimpleSection, FieldsSection]] = []
+        header = self._header_to_dict()
+        if header:
+            ret.append(header)
+        message = self._message_to_dict()
+        if message:
+            ret.append(message)
+        fields = self._fields_to_dict()
+        if fields:
+            ret.append(fields)
+        footer = self._footer_to_dict()
+        if footer:
+            ret.append(footer)
+        return ret
+
+    def to_dict(self) -> list:
+        ret = {}
+        if self.color:
+            ret["color"] = Color.get_code(self.color)
+        block = self._build_block()
+        if block:
+            ret["block"] = block
+        return [ret]
