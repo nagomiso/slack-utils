@@ -90,7 +90,7 @@ class Attachments(NamedTuple):
             ret.append(footer)
         return ret
 
-    def to_dict(self) -> list:
+    def to_dict(self) -> Sequence[dict]:
         ret = {}
         if self.color:
             ret["color"] = Color.get_code(self.color)
