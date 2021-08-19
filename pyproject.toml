@@ -1,23 +1,23 @@
 [tool.poetry]
 name = "slackutils"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["nagomiso <daiseigi.giants+github@gmail.com>"]
 license = "MIT License"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-slack-sdk = "^3.4.2"
-click = "^7.1.2"
+slack-sdk = "^3.9.1"
+click = "^8.0.1"
 s3fs = "^2021.4.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.2"
-black = "^20.8b1"
+black = "^21.7b0"
 flake8 = "^3.9.0"
-mypy = "^0.812"
-isort = "^5.8.0"
-pre-commit = "^2.11.1"
+mypy = "^0.910"
+isort = "^5.9.3"
+pre-commit = "^2.14.0"
 
 [tool.poetry.scripts]
 slackutils = "slackutils.cmd.main:main"
