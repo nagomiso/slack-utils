@@ -95,5 +95,5 @@ class Attachments(NamedTuple):
             ret["color"] = Color.get_code(self.color)
         block = self._build_block()
         if block:
-            ret["block"] = block
+            ret["blocks"] = block
         return [ret]
