@@ -9,8 +9,8 @@ env:
   POETRY_VERSION: "1.1.7"
   TAG: pr-${{ github.event.number }}
 jobs:
-  main:
-    name: Build Image
+  lint_and_build:
+    name: Lint and Build Image
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -23,7 +23,9 @@ jobs:
       - name: Run poetry install
         run: poetry install
       - name: Lint
-        run: poetry run pre-commit run -a
+        run: |
+          poetry run pip install -U pip setuptools wheel
+          poetry run pre-commit run -a
       - name: Build wheel
         run: |
           poetry build -f wheel
