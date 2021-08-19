@@ -17,7 +17,7 @@ jobs:
       - name: Install dasel
         run: |
           sudo curl -L \
-            https://github.com/TomWright/dasel/releases/download/${{ DASEL_VERSION }}/dasel_linux_amd64 \
+            https://github.com/TomWright/dasel/releases/download/${{ env.DASEL_VERSION }}/dasel_linux_amd64 \
             -o /usr/local/bin/dasel
           sudo chmod +x /usr/local/bin/dasel
       - name: Get a release version
