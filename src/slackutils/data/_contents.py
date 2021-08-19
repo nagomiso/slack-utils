@@ -1,16 +1,15 @@
 from enum import Enum
-from typing import NamedTuple, Optional, Sequence, TypedDict, Union
+from typing import Any, Dict, List, NamedTuple, Optional, Sequence, TypedDict, Union
 
 
 class Color(Enum):
-    GOOD = "#2EB886"
+    GOOD: str = "#2EB886"
     WARNING = "#DAA038"
     DANGER = "#A30100"
-    NONE = ""
 
     @classmethod
     def get_code(cls, name: str) -> str:
-        return getattr(cls, name.upper()).value
+        return cls[name.upper()].value
 
 
 class Text(TypedDict):
@@ -25,11 +24,11 @@ class SimpleSection(TypedDict):
 
 class FieldsSection(TypedDict):
     type: str
-    fileds: Sequence[Text]
+    fields: Sequence[Text]
 
 
 class Attachments(NamedTuple):
-    color: str
+    color: Optional[str]
     header: Optional[str]
     message: Optional[str]
     fields: Sequence[str]
@@ -75,7 +74,7 @@ class Attachments(NamedTuple):
         return None
 
     def _build_block(self) -> Sequence[Union[SimpleSection, FieldsSection]]:
-        ret: Sequence[Union[SimpleSection, FieldsSection]] = []
+        ret: List[Union[SimpleSection, FieldsSection]] = []
         header = self._header_to_dict()
         if header:
             ret.append(header)
@@ -90,8 +89,8 @@ class Attachments(NamedTuple):
             ret.append(footer)
         return ret
 
-    def to_dict(self) -> Sequence[dict]:
-        ret = {}
+    def to_payload(self) -> Sequence[Dict[str, Any]]:
+        ret: Dict[str, Any] = {}
         if self.color:
             ret["color"] = Color.get_code(self.color)
         block = self._build_block()

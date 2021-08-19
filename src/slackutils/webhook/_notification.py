@@ -1,4 +1,5 @@
 from typing import Optional, Sequence
+
 from slack_sdk.errors import SlackClientError
 from slack_sdk.webhook import WebhookClient
 
@@ -15,9 +16,13 @@ def send(
 ) -> None:
     webhook = WebhookClient(url=webhook_url)
     attachments = Attachments(
-        color, header, message, fields, footer,
+        color=color,
+        header=header,
+        message=message,
+        fields=fields,
+        footer=footer,
     )
-    response = webhook.send(attachments=attachments.to_dict())
+    response = webhook.send(attachments=attachments.to_payload())
     status_code, body = response.status_code, response.body
     if status_code != 200 or body != "ok":
         raise SlackClientError(
