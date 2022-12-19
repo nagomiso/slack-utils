@@ -10,6 +10,8 @@ jobs:
   release:
     name: Release a new version
     runs-on: ubuntu-22.04
+    permissions:
+      packages: write
     if: |
       github.event.pull_request.merged && contains(github.event.pull_request.labels.*.name, 'release')
     steps:

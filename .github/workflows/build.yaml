@@ -12,6 +12,8 @@ jobs:
   lint_and_build:
     name: Lint and Build Image
     runs-on: ubuntu-22.04
+    permissions:
+      packages: write
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
