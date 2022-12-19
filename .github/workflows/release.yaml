@@ -9,7 +9,7 @@ env:
 jobs:
   release:
     name: Release a new version
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     if: |
       github.event.pull_request.merged && contains(github.event.pull_request.labels.*.name, 'release')
     steps:
