@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-22.04
     permissions:
       packages: write
+      contents: write
     if: |
       github.event.pull_request.merged && contains(github.event.pull_request.labels.*.name, 'release')
     steps:
