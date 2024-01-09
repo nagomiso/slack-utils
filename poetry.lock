@@ -587,6 +587,20 @@ files = [
 ]
 
 [[package]]
+name = "pathlibfs"
+version = "0.5.0"
+description = "pathlib 🤝 fsspec, manipulate remote filesystem paths."
+optional = false
+python-versions = ">=3.8,<4.0"
+files = [
+    {file = "pathlibfs-0.5.0-py3-none-any.whl", hash = "sha256:ef21bdf49cf9c0ae16350051c7566171cd9a5ffd942290af7567c168ca2a73f3"},
+    {file = "pathlibfs-0.5.0.tar.gz", hash = "sha256:a91bda934ebb9b443626689a4bd3be483ec19261246a62d045f7f5d11615068e"},
+]
+
+[package.dependencies]
+fsspec = ">=2023.5.0"
+
+[[package]]
 name = "platformdirs"
 version = "4.1.0"
 description = "A small Python package for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
@@ -1180,4 +1194,4 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.12.0"
-content-hash = "ca6404061709737566bb0dd076467001e0a77fac060f65480d216f685035a0d7"
+content-hash = "c8d1dd0cb433e512f9e71c85c2c7e4930bc7e0eebb3b667365430adb998c896b"
