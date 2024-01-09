@@ -1,5 +1,8 @@
+from __future__ import annotations
+
+from collections.abc import Sequence
 from enum import Enum
-from typing import Any, Dict, List, NamedTuple, Optional, Sequence, TypedDict, Union
+from typing import Any, NamedTuple, Optional, TypedDict, Union
 
 
 class Color(Enum):
@@ -73,27 +76,22 @@ class Attachments(NamedTuple):
             return self._convert_to_mrkdwn_section(self.footer)
         return None
 
-    def _build_block(self) -> Sequence[Union[SimpleSection, FieldsSection]]:
-        ret: List[Union[SimpleSection, FieldsSection]] = []
-        header = self._header_to_dict()
-        if header:
+    def _build_block(self) -> list[Union[SimpleSection, FieldsSection]]:
+        ret: list[Union[SimpleSection, FieldsSection]] = []
+        if header := self._header_to_dict():
             ret.append(header)
-        message = self._message_to_dict()
-        if message:
+        if message := self._message_to_dict():
             ret.append(message)
-        fields = self._fields_to_dict()
-        if fields:
+        if fields := self._fields_to_dict():
             ret.append(fields)
-        footer = self._footer_to_dict()
-        if footer:
+        if footer := self._footer_to_dict():
             ret.append(footer)
         return ret
 
-    def to_payload(self) -> Sequence[Dict[str, Any]]:
-        ret: Dict[str, Any] = {}
+    def to_payload(self) -> list[dict[str, Any]]:
+        ret: dict[str, Any] = {}
         if self.color:
             ret["color"] = Color.get_code(self.color)
-        block = self._build_block()
-        if block:
+        if block := self._build_block():
             ret["blocks"] = block
         return [ret]
