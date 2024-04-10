@@ -1,31 +1,47 @@
-[tool.poetry]
+[project]
 name = "slackutils"
-version = "0.3.0"
-description = ""
-authors = ["nagomiso <daiseigi.giants+github@gmail.com>"]
-license = "MIT License"
-readme = "README.md"
-packages = [{ include = "slackutils", from = "src/" }]
+version = "0.2.2"
+description = "A thin wrapper of slack-SDK. This wrapper provides CLI for post messages to Slack."
+authors = [{ name = "nagomiso", email = "daiseigi.giants+github@gmail.com" }]
+dependencies = ["slack-sdk>=3.27.1", "click>=8.1.7", "s3fs>=2024.3.1"]
+requires-python = ">= 3.12"
 
-[tool.poetry.dependencies]
-python = "~3.12.0"
-slack-sdk = "^3.26.2"
-click = "^8.1.7"
-s3fs = "^2023.12.2"
-pathlibfs = "^0.5.0"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry.dev-dependencies]
-pytest = "^7.4.4"
-ruff = "^0.1.11"
-mypy = "^1.8.0"
-pre-commit = "^3.6.0"
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=8.1.1",
+    "black>=24.3.0",
+    "flake8>=7.0.0",
+    "mypy>=1.9.0",
+    "isort>=5.13.2",
+    "pre-commit>=3.7.0",
+]
 
-[tool.poetry.scripts]
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/slackutils"]
+
+[project.scripts]
 slackutils = "slackutils.cmd.main:main"
 
 [tool.ruff]
 line-length = 88
 target-version = "py312"
+
+[tool.isort]
+profile = "black"
+include_trailing_comma = true
+line_length = 88
+multi_line_output = 3
+use_parentheses = true
+known_third_party = "slack_sdk"
+known_first_party = "slackutils"
 
 [tool.pytest.ini_options]
 minversion = "7.2"
@@ -33,7 +49,3 @@ addopts = """
     -s \
     -vv"""
 testpaths = ["tests"]
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
