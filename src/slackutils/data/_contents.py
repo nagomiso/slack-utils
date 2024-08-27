@@ -6,7 +6,7 @@ from typing import Any, NamedTuple, Optional, TypedDict, Union
 
 
 class Color(Enum):
-    GOOD: str = "#2EB886"
+    GOOD = "#2EB886"
     WARNING = "#DAA038"
     DANGER = "#A30100"
 
