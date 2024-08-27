@@ -16,10 +16,18 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
-      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12.5"
+      - name: Install pre-commit
+        run:
+          pipx install pre-commit
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Run pre-commit
+        run: pre-commit run --all-files
       - name: Install Build
         run: |
           pip install build==${{ env.BUILD_VERSION }}
