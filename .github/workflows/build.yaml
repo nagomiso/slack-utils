@@ -21,7 +21,7 @@ jobs:
           python-version: "3.12.5"
       - name: Install pre-commit
         run:
-          pipx install pre-commit
+          pipx install pre-commit --python 3.12.5
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
@@ -30,10 +30,10 @@ jobs:
         run: pre-commit run --all-files
       - name: Install Build
         run: |
-          pip install build==${{ env.BUILD_VERSION }}
+          pip3.12 install build==${{ env.BUILD_VERSION }}
       - name: Build wheel
         run: |
-          python -m build --wheel .
+          python3.12 -m build --wheel .
           mkdir -p docker/wheels && cp -a dist/*.whl docker/wheels/
       - uses: docker/setup-buildx-action@988b5a0280414f521da01fcc63a27aeeb4b104db # v3.6.1
       - uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3.3.0
